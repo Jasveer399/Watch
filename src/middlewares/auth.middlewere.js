@@ -2,14 +2,15 @@ import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/ayncHandler.js";
 import { User } from "../models/user.models.js";
-import { acctoken } from "../controllers/user.controller.js";
 export const verifyJWT = asyncHandler(async (req, _, next) => {
   try {
-    let token;
-    const jwtPromise = acctoken;
-   await jwtPromise.then((t) => {
-      token = t; // This will log the JWT string
-    });
+
+    const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+  //   let token;
+  //   const jwtPromise = acctoken;
+  //  await jwtPromise.then((t) => {
+  //     token = t; // This will log the JWT string
+  //   });
     if (!token) {
       throw new ApiError(401, "Unauthorized request");
     }
