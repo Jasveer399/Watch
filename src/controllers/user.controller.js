@@ -262,6 +262,7 @@ const updateUserdetails = asyncHandler(async (req, res) => {
 
 const updatedUserAvatar = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.file?.path;
+  console.log(avatarLocalPath);
 
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar File is Missing");
@@ -272,7 +273,7 @@ const updatedUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error While uploading  Avatar to Cloudinary");
   }
 
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user._id,
     {
       $set: {
@@ -299,8 +300,7 @@ const updatedUserCoverImage = asyncHandler(async (req, res) => {
   if (!coverImage) {
     throw new ApiError(400, "Error While uploading  CoverImage to Cloudinary");
   }
-
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user._id,
     {
       $set: {
@@ -311,6 +311,7 @@ const updatedUserCoverImage = asyncHandler(async (req, res) => {
       new: true,
     }
   );
+  console.log(user);
   return res
     .status(200)
     .json(new ApiResponse(200, "Avatar Updated Successfully", user));
@@ -436,7 +437,7 @@ const getWatchHistoty = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         "Watch History Fatched Successuflly",
-        user[0].watchHistory,
+        user[0].watchHistory
       )
     );
 });
