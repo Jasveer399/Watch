@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const tweetSchema = new Schema(
   {
-    contant: {
+    content: {
       type: String,
       required: [true, "Please provide a content for the Tweet"],
     },

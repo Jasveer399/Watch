@@ -7,11 +7,11 @@ const videoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    thumnail: {
+    thumbnail: {
       type: String,
       required: true,
     },
-    titel: {
+    title: {
       type: String,
       required: true,
     },
